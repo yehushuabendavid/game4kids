@@ -26,15 +26,20 @@ def drawmenu():
     if mpos[1]>245:
         if mpos[1]<300:
             F.blit(s_menuq,(0,0))
-            
 
-
+def click (p):
+    global run
+    if p[1]>245:
+        if p[1]<300:
+            run=0
 while run:
     if mode=='menu':
         drawmenu()
     msgs=pg.event.get()
     for m in msgs:
         print(m)
+        if m.type==pg.MOUSEBUTTONDOWN:
+            click (m.pos)
         if m.type == pg.MOUSEMOTION :
             mpos=m.pos
             #F.fill((m.pos[0] %255,m.pos[1] % 255 ,255))
