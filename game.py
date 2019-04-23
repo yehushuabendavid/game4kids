@@ -22,9 +22,13 @@ s_bad2=pg.image.load('data/space/e2.png');
 s_bad3=pg.image.load('data/space/e3.png');
 bads=[]
 def newbad():
+    global bads
     bad={}
-    bad['speed']=50
+    bad['speed']=50+(time.time()*1000)%100
     bad["pos"]=[50+(time.time()*1000)%300,-50]
+    bad["vie"] = 100
+    bad['img']=s_bad3
+    bads+=[bad]
 def piou(snd):
     pg.mixer.Channel(0).play(snd)
 pg.mixer.music.play(-1)
@@ -57,7 +61,11 @@ def click_menu (p):
 
 t=0;
 def drawgame():
+    global dt
     F.blit(s_gamefnd,(0,0))
+    for b in bads:
+        F.blit(b['img'],b["pos"])
+        b['pos'][1]+=b["speed"]*dt
 
 
 
@@ -65,6 +73,7 @@ def click_game(p):
     global mode
     mode = "game"
     piou(snd_2)
+    newbad()
 t=time.time()
 
 while run:
