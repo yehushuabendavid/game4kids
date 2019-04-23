@@ -20,7 +20,14 @@ pg.mixer.music.load('data/space/snd/music.mp3')
 s_bad1=pg.image.load('data/space/e1.png');
 s_bad2=pg.image.load('data/space/e2.png');
 s_bad3=pg.image.load('data/space/e3.png');
-
+bads=[]
+def newbad():
+    bad={}
+    bad['speed']=50
+    bad["pos"]=[50+(time.time()*1000)%300,-50]
+def piou(snd):
+    pg.mixer.Channel(0).play(snd)
+pg.mixer.music.play(-1)
 mpos=(0,0)
 def drawmenu():
     F.blit(s_menufnd,(0,0))
@@ -41,7 +48,9 @@ def click_menu (p):
     global run
     global mode
     i=0;
-
+    if mpos[1]>130:
+        if mpos[1]<185:
+            mode='game'
     if p[1]>245:
         if p[1]<300:
             run=0
@@ -54,7 +63,8 @@ def drawgame():
 
 def click_game(p):
     global mode
-    mode = "menu"
+    mode = "game"
+    piou(snd_2)
 t=time.time()
 
 while run:
@@ -63,13 +73,16 @@ while run:
     t=time.time()
     if mode=='menu':
         drawmenu()
-
+    if mode=='game':
+        drawgame()
     msgs=pg.event.get()
     for m in msgs:
         print(m)
         if m.type==pg.MOUSEBUTTONDOWN:
             if mode == "menu":
                 click_menu(m.pos)
+            else:
+                click_game(m.pos)
         if m.type == pg.MOUSEMOTION :
             mpos=m.pos
             #F.fill((m.pos[0] %255,m.pos[1] % 255 ,255))
