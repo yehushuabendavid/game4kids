@@ -2,6 +2,7 @@ print ('start')
 import pygame as pg
 
 pg.init()
+pg.mixer.set_num_channels(100)
 
 F = pg.display.set_mode((400,700))
 run=1
@@ -11,6 +12,11 @@ s_menu= pg.image.load('data/space/menu.png');
 s_menuc= pg.image.load('data/space/menucredit.png');
 s_menuq= pg.image.load('data/space/menuquit.png');
 s_menus= pg.image.load('data/space/menustart.png');
+snd_2 = pg.mixer.Sound('data/space/snd/2.aiff')
+snd_3 = pg.mixer.Sound('data/space/snd/3.aiff')
+pg.mixer.music.load('data/space/snd/music.mp3')
+pg.mixer.music.play(1)
+
 mpos=(0,0)
 def drawmenu():
     F.blit(s_menufnd,(0,0))
@@ -29,6 +35,11 @@ def drawmenu():
 
 def click (p):
     global run
+    i=0;
+    while pg.mixer.Channel(i).get_busy() :
+        i+=1;
+    pg.mixer.Channel(i).play(snd_2)
+    pg.mixer.Channel(i+1).play(snd_3)
     if p[1]>245:
         if p[1]<300:
             run=0
