@@ -22,6 +22,7 @@ s_bad1=pg.image.load('data/space/e1.png');
 s_bad2=pg.image.load('data/space/e2.png');
 s_bad3=pg.image.load('data/space/e3.png');
 
+s_w=pg.image.load('data/space/w.png');
 s_w1=pg.image.load('data/space/w1.png');
 s_w2=pg.image.load('data/space/w2.png');
 s_w3=pg.image.load('data/space/w3.png');
