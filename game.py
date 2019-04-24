@@ -43,7 +43,7 @@ def newbad():
     bad={}
     bad['speed']=50+(time.time()*1000)%100
     bad["pos"]=[(time.time()*1000)%350,-50]
-    bad["vie"] = 100
+    bad["vie"] = 1
     bad['img']=rnd.choice([s_bad1,s_bad2,s_bad3])
     bads+=[bad]
 def piou(snd):
@@ -83,6 +83,7 @@ def drawgame():
     global dt
     global mode
     global modew
+    global bads
     #newbad()
     F.blit(s_gamefnd,(0,0))
 
@@ -92,12 +93,22 @@ def drawgame():
     F.blit(s_w2,(100,600))
     F.blit(s_w3,(200,600))
     F.blit(s_w4,(300,600))
+    listbad = []
 
     for b in bads:
-        F.blit(b['img'],(b["pos"][0]-25,b["pos"][1]-25))
+        if b['vie']==1:
+            F.blit(b['img'],(b["pos"][0]-25,b["pos"][1]-25))
+            listbad+=[b]
+        else:
+            bdt = time.time()-b["bb"]
+            if bdt < 3:
+                F.blit(s_booms[int(len(s_booms)*bdt/3)], (b["pos"][0] - 50, b["pos"][1] - 50))
+                listbad += [b]
+
         b['pos'][1]+=b["speed"]*dt
         if b["pos"][1]>550:
             mode='menu'
+    bads = listbad
 
 
 def dist(p1,p2):
@@ -119,8 +130,9 @@ def click_game(p):
         if dist(p,b["pos"]) <= dd :
             b["speed"]=0
             if modew != 3:
+                if b["vie"]:
+                    b['bb'] = time.time()
                 b["vie"]=0;
-                b['bb']=time.time()
 
     if p[1]>600:
         modew=int(p[0]/100)
