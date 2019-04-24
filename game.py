@@ -91,10 +91,10 @@ def drawgame():
 def click_game(p):
     global mode
     mode = "game"
-    piou(snd_2)
+    piou(snd_3)
     newbad()
 t=time.time()
-
+modew=1
 while run:
     dt=time.time() - t;
     print(dt)
