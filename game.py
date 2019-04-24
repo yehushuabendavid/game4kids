@@ -29,6 +29,14 @@ s_w2=pg.image.load('data/space/w2.png');
 s_w3=pg.image.load('data/space/w3.png');
 s_w4=pg.image.load('data/space/w4.png');
 
+s_boom=pg.image.load('data/space/boom.png')
+s_booms=[];
+for i in range(9*6):
+    print(s_boom)
+    r = pg.Rect(100*(i%9),100*int(i/9),100,100)
+    print(i,r)
+    s_booms+=[s_boom.subsurface(r)]
+
 bads=[]
 def newbad():
     global bads
@@ -112,6 +120,7 @@ def click_game(p):
             b["speed"]=0
             if modew != 3:
                 b["vie"]=0;
+                b['bb']=time.time
 
     if p[1]>600:
         modew=int(p[0]/100)
