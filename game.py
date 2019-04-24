@@ -25,7 +25,7 @@ def newbad():
     global bads
     bad={}
     bad['speed']=50+(time.time()*1000)%100
-    bad["pos"]=[50+(time.time()*1000)%300,-50]
+    bad["pos"]=[(time.time()*1000)%350,-50]
     bad["vie"] = 100
     bad['img']=s_bad3
     bads+=[bad]
@@ -62,6 +62,7 @@ def click_menu (p):
 t=0;
 def drawgame():
     global dt
+    newbad()
     F.blit(s_gamefnd,(0,0))
     for b in bads:
         F.blit(b['img'],b["pos"])
