@@ -72,8 +72,14 @@ t=0;
 def drawgame():
     global dt
     global mode
-    newbad()
+    #newbad()
     F.blit(s_gamefnd,(0,0))
+
+    F.blit(s_w1,(0,600))
+    F.blit(s_w2,(100,600))
+    F.blit(s_w3,(200,600))
+    F.blit(s_w4,(300,600))
+
     for b in bads:
         F.blit(b['img'],b["pos"])
         b['pos'][1]+=b["speed"]*dt
