@@ -120,7 +120,7 @@ def click_game(p):
             b["speed"]=0
             if modew != 3:
                 b["vie"]=0;
-                b['bb']=time.time
+                b['bb']=time.time()
 
     if p[1]>600:
         modew=int(p[0]/100)
