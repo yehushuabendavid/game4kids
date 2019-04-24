@@ -2,6 +2,7 @@ print ('start')
 import pygame as pg
 import time
 import random as rnd
+import math
 
 pg.init()
 pg.mixer.set_num_channels(100)
@@ -73,8 +74,11 @@ t=0;
 def drawgame():
     global dt
     global mode
+    global modew
     #newbad()
     F.blit(s_gamefnd,(0,0))
+
+    F.blit(s_w, (modew *100, 600))
 
     F.blit(s_w1,(0,600))
     F.blit(s_w2,(100,600))
@@ -82,15 +86,35 @@ def drawgame():
     F.blit(s_w4,(300,600))
 
     for b in bads:
-        F.blit(b['img'],b["pos"])
+        F.blit(b['img'],(b["pos"][0]-25,b["pos"][1]-25))
         b['pos'][1]+=b["speed"]*dt
         if b["pos"][1]>550:
             mode='menu'
 
 
+def dist(p1,p2):
+    return math.hypot(p2[0]-p1[0],p2[1]-p1[1])
 
 def click_game(p):
     global mode
+    global modew
+    global bads
+    if modew==0:
+        dd = 100
+    if modew==1:
+        dd = 50
+    if modew==2:
+        dd = 25
+    if modew==3:
+        dd = 100
+    for b in bads:
+        if dist(p,b["pos"]) <= dd :
+            b["speed"]=0
+            if modew != 3:
+                b["vie"]=0;
+
+    if p[1]>600:
+        modew=int(p[0]/100)
     mode = "game"
     piou(snd_3)
     newbad()
