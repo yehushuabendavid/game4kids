@@ -29,6 +29,9 @@ s_w2=pg.image.load('data/space/w2.png');
 s_w3=pg.image.load('data/space/w3.png');
 s_w4=pg.image.load('data/space/w4.png');
 
+
+s_team=pg.image.load('data/space/team.png');
+
 s_boom=pg.image.load('data/space/boom.png')
 s_booms=[];
 for i in range(9*6):
@@ -51,8 +54,11 @@ def piou(snd):
 pg.mixer.music.play(-1)
 mpos=(0,0)
 def drawmenu():
+    global team
     F.blit(s_menufnd,(0,0))
     F.blit(s_menu, (0, 0))
+    if team == 1 :
+        F.blit(s_team,(0,0));
     if mpos[1]>130:
         if mpos[1]<185:
             F.blit(s_menus,(0,0))
@@ -69,11 +75,18 @@ def click_menu (p):
     global run
     global mode
     global bads
+    global team
     i=0;
     if mpos[1]>130:
         if mpos[1]<185:
             mode='game'
             bads=[]
+            newbad()
+            newbad()
+            newbad()
+    if mpos[1]>185:
+        if mpos[1]<245:
+            team=(team + 1) % 2
     if p[1]>245:
         if p[1]<300:
             run=0
@@ -141,6 +154,7 @@ def click_game(p):
     newbad()
 t=time.time()
 modew=1
+team=0;
 while run:
     dt=time.time() - t;
     print(dt)
