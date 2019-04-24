@@ -1,6 +1,7 @@
 print ('start')
 import pygame as pg
 import time
+import random as rnd
 
 pg.init()
 pg.mixer.set_num_channels(100)
@@ -20,6 +21,12 @@ pg.mixer.music.load('data/space/snd/music.mp3')
 s_bad1=pg.image.load('data/space/e1.png');
 s_bad2=pg.image.load('data/space/e2.png');
 s_bad3=pg.image.load('data/space/e3.png');
+
+s_w1=pg.image.load('data/space/w1.png');
+s_w2=pg.image.load('data/space/w2.png');
+s_w3=pg.image.load('data/space/w3.png');
+s_w4=pg.image.load('data/space/w4.png');
+
 bads=[]
 def newbad():
     global bads
@@ -27,7 +34,7 @@ def newbad():
     bad['speed']=50+(time.time()*1000)%100
     bad["pos"]=[(time.time()*1000)%350,-50]
     bad["vie"] = 100
-    bad['img']=s_bad3
+    bad['img']=rnd.choice([s_bad1,s_bad2,s_bad3])
     bads+=[bad]
 def piou(snd):
     pg.mixer.Channel(0).play(snd)
@@ -51,10 +58,12 @@ def drawmenu():
 def click_menu (p):
     global run
     global mode
+    global bads
     i=0;
     if mpos[1]>130:
         if mpos[1]<185:
             mode='game'
+            bads=[]
     if p[1]>245:
         if p[1]<300:
             run=0
@@ -62,11 +71,14 @@ def click_menu (p):
 t=0;
 def drawgame():
     global dt
+    global mode
     newbad()
     F.blit(s_gamefnd,(0,0))
     for b in bads:
         F.blit(b['img'],b["pos"])
         b['pos'][1]+=b["speed"]*dt
+        if b["pos"][1]>550:
+            mode='menu'
 
 
 
