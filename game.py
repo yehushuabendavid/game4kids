@@ -6,6 +6,7 @@ import math
 
 pg.init()
 pg.mixer.set_num_channels(100)
+pg.display.set_caption("Code4Kids - Space Defence Force -")
 
 F = pg.display.set_mode((400,700))
 run=1
