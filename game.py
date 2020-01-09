@@ -3,7 +3,8 @@ import pygame as pg
 import time
 import random as rnd
 import math
-
+class Obj:
+    pass
 pg.init()
 pg.mixer.set_num_channels(100)
 pg.display.set_caption("Code4Kids - Space Defence Force -")
@@ -132,9 +133,9 @@ def drawgame():
     newobjlist = []
 
     for o in obj_list:
-        if (tt - o["time"]) <= o["dur"]:
+        if (tt - o.time) <= o.dur:
             newobjlist+=[o]
-        F.blit(o["img"],o["pos"])
+        F.blit(o.img,o.pos)
     obj_list = newobjlist;
 
 
@@ -179,11 +180,11 @@ def click_game(p):
     if modew==2:
         piou(snd_3)
         dd = 25
-        o={}
-        o["img"] = s_laser
-        o["pos"] = (p[0]-25,0)
-        o["time"] = time.time()
-        o["dur"] = 0.25
+        o=Obj()
+        o.img = s_laser
+        o.pos = (p[0]-25,0)
+        o.time = time.time()
+        o.dur = 0.25
         obj_list+=[o]
     if modew==3:
         piou(snd_4)
